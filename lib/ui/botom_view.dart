@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weather_app/model/weather_forecast_model.dart';
+import 'forecast_card.dart';
+
+//Better way
+class BottomView extends StatelessWidget {
+  final AsyncSnapshot<WeatherForecastModel> snapshot;
+
+  const BottomView({Key key, this.snapshot}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    var forecastList = snapshot.data.list;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text("7-day Weather Forecast".toUpperCase(),
+            style: TextStyle(fontSize: 14, color: Colors.black87)),
+        Container(
+          height: 170,
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (context, index) => SizedBox(width: 8),
+            itemCount: forecastList.length,
+            itemBuilder: (context, index) => ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(14.0)),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2,
+                height: 160,
+                child: forecastCard(snapshot, index),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [Color(0xff9661C3), Colors.white],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+// Widget bottomView(AsyncSnapshot<WeatherForecastModel> snapshot, BuildContext context){
+//
+//   var forecastList = snapshot.data.list;
+//
+//
+//   return Column(
+//     mainAxisAlignment: MainAxisAlignment.start,
+//     children: [
+//       Text("7-day Weather Forecast".toUpperCase(),
+//       style: TextStyle(fontSize: 14, color: Colors.black87)),
+//       Container(
+//         height: 170,
+//         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+//         child: ListView.separated(
+//           scrollDirection: Axis.horizontal,
+//             separatorBuilder: (context, index) => SizedBox(width: 8),
+//             itemCount: forecastList.length,
+//             itemBuilder: (context, index) => ClipRRect(
+//               borderRadius: BorderRadius.all(Radius.circular(14.0)),
+//               child: Container(
+//                 width: MediaQuery.of(context).size.width / 2.4,
+//                 height: 160,
+//                 child: forecastCard(snapshot, index),
+//                 decoration: BoxDecoration(
+//                   gradient: LinearGradient(colors: [Color(0xff9661C3), Colors.white],
+//                   begin: Alignment.topLeft,
+//                     end: Alignment.bottomRight,
+//                   )
+//                 ),
+//               ),
+//
+//             ),
+//         ),
+//       )
+//
+//     ],
+//   );
+//
+//
+// }
