@@ -1,1 +1,1 @@
-# 7-day weather forecast made in Flutter
+# 7-day weather forecast made with Flutter
